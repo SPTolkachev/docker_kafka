@@ -1,0 +1,43 @@
+# Main environment file
+FILENAME_DOT_ENV='.env'
+DOT_ENV=`cat <<_EOF_
+TIMEZONE=Europe/London
+
+# ZOOKEEPER
+ZOOKEEPER_PORT=2181
+ZOOKEEPER_RESTART=no
+
+# KAFKA
+KAFKA_PORT=9092
+KAFKA_RESTART=no
+
+# KAFKA_UI
+KAFKA_UI_PORT=8080
+KAFKA_UI_RESTART=no
+
+_EOF_`
+
+# Kafka environment file
+FILENAME_DOT_ENV_KAFKA='.env.kafka'
+DOT_ENV_KAFKA=`cat <<_EOF_
+KAFKA_CREATE_TOPICS="my-topic:1:1"
+KAFKA_LOG_RETENTION_MS=86400000
+KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS=7200000
+
+_EOF_`
+
+
+
+if [ ! -f $FILENAME_DOT_ENV ]
+then
+    echo "$DOT_ENV" > $FILENAME_DOT_ENV
+else
+    echo "File '$FILENAME_DOT_ENV' already exist"
+fi
+
+if [ ! -f $FILENAME_DOT_ENV_KAFKA ]
+then
+    echo "$DOT_ENV_KAFKA" > $FILENAME_DOT_ENV_KAFKA
+else
+    echo "File '$FILENAME_DOT_ENV_KAFKA' already exist"
+fi
